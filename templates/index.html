@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Detector</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            text-align: center;
+            padding-top: 100px;
+            color: white;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .spam {
+            color: red;
+            font-weight: bold;
+        }
+
+        .ham {
+            color: green;
+            font-weight: bold;
+        }
+
+        .debug {
+            margin-top: 10px;
+            font-size: 14px;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>📩 Spam Detector</h1>
+
+    <form method="POST">
+        <input type="text" name="message" placeholder="Enter message..." value="{{ user_input }}" required>
+        <br>
+        <button type="submit">Check</button>
+    </form>
+
+    {% if prediction %}
+        <div class="result">
+            <h2 class="{{ 'spam' if 'Spam' in prediction else 'ham' }}">
+                {{ prediction }}
+            </h2>
+            <h3>Confidence: {{ confidence }}</h3>
+
+            <!-- Debug info -->
+            <div class="debug">
+                Raw Score: {{ raw_score }}
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
